@@ -12,7 +12,7 @@ const Home = () => {
     marginLeft: '10px',
 };
 const startRegister = () => {
-  navigate('/register')
+  navigate('/authenticate')
 }
   return (
     <div className={styles.cardWrapper}>
@@ -24,15 +24,15 @@ const startRegister = () => {
                     gradually to make sure nothing breaks
                 </p>
                 <div>
-                    <Button onClick={startRegister} text="Get your username" />
+                    <Button onClick={startRegister} text="Let's Go" />
                 </div>
                 <div className={styles.signinWrapper}>
                     <span className={styles.hasInvite}>
                         Have an invite text?
                     </span>
-                    <Link style={signInLinkStyle} to="/login">
+                    {/* <Link style={signInLinkStyle} to="/login">
                         Sign in
-                    </Link>
+                    </Link> */}
                 </div>
       </Card>
     </div>
