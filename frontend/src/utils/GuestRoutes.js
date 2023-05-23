@@ -1,15 +1,17 @@
 import React from 'react'
-import {Navigate} from 'react-router-dom'
-const isAuth = false
-const GuestRoute = ({children}) => {
+import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+// const isAuth = false
 
-    if(isAuth){
+const GuestRoute = ({ children }) => {
+    const { isAuth } = useSelector((state) => state.auth)
+    if (isAuth) {
         return <Navigate to='/rooms' />
-    }else{
+    } else {
         return children
     }
 
-  
+
 }
 
 export default GuestRoute

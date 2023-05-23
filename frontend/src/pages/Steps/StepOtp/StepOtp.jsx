@@ -3,10 +3,21 @@ import Card from '../../../components/shared/card/Card'
 import TextInput from '../../../components/shared/TextInput/TextInput'
 import styles from './StepOtp.module.css'
 import Button from '../../../components/shared/button/Button'
+import { verifyOtp } from '../../../http'
+import { useSelector } from 'react-redux'
+import { setAuth } from '../../../store/authSlice'
+import { useDispatch } from 'react-redux'
 const StepOtp = ({onNext}) => {
   const [otp, setOtp] = useState('')
-  const submit = () => {
-    
+  const {phone, hash} = useSelector((state) => state.auth.otp)
+  const dispatch = useDispatch()
+  const submit = async () => {
+    try {
+        const {data} = await verifyOtp({otp, phone, hash})
+        dispatch(setAuth(data))
+    } catch (error) {
+        console.log(error.message)
+    }
   }
   return (
     <>
