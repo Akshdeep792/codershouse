@@ -3,8 +3,8 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home';
 import Navigation from './components/shared/Navigation/Navigation';
-import Register from './pages/Register/Register';
-import Login from './pages/Login/Login';
+// import Register from './pages/Register/Register';
+// import Login from './pages/Login/Login';
 import Authenticate from './pages/Authenticate.jsx/Autheticate';
 import GuestRoute from './utils/GuestRoutes';
 import SemiProtectedRoute from './utils/SemiProtectedRoutes'
