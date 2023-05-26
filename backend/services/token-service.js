@@ -32,6 +32,9 @@ class TokenService {
     async updateRefreshToken(userId, refToken) {
         return await refreshModel.updateOne({ userId: userId }, { token: refToken })
     }
+    async removeToken(refToken) {
+        await refreshModel.deleteOne({ token: refToken })
+    }
 }
 
 module.exports = new TokenService()

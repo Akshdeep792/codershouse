@@ -13,12 +13,13 @@ import Activate from './pages/activate/Activate';
 import Rooms from './pages/Rooms/Rooms';
 import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
 // import { useState } from 'react';
+import Loader from './components/shared/Loader/Loader';
 function App() {
 
   const { loading } = useLoadingWithRefresh()
-
+  // const loading = true
   return (
-    loading ? 'Loading' : (
+    loading ? <Loader message="Loading Please Wait...." /> : (
       // Make guest route ---> if logged in than redirect to rooms page.
       < BrowserRouter >
         <Navigation />
