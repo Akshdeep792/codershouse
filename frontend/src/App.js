@@ -11,21 +11,27 @@ import SemiProtectedRoute from './utils/SemiProtectedRoutes'
 import ProtectedRoute from './utils/ProtectedRoute';
 import Activate from './pages/activate/Activate';
 import Rooms from './pages/Rooms/Rooms';
+import { useLoadingWithRefresh } from './hooks/useLoadingWithRefresh';
+// import { useState } from 'react';
 function App() {
-  return (
 
-    // Make guest route ---> if logged in than redirect to rooms page.
-    <BrowserRouter>
-      <Navigation />
-      <Routes>
-        <Route exact path="/" element={<GuestRoute> <Home /></GuestRoute>} />
-        {/* <Route path='/register' element={<Register />} />
+  const { loading } = useLoadingWithRefresh()
+
+  return (
+    loading ? 'Loading' : (
+      // Make guest route ---> if logged in than redirect to rooms page.
+      < BrowserRouter >
+        <Navigation />
+        <Routes>
+          <Route exact path="/" element={<GuestRoute> <Home /></GuestRoute>} />
+          {/* <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} /> */}
-        <Route path='/authenticate' element={<GuestRoute><Authenticate /></GuestRoute>} />
-        <Route path='/activate' element={<SemiProtectedRoute><Activate /></SemiProtectedRoute>} />
-        <Route path='/rooms' element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
-      </Routes>
-    </BrowserRouter>
+          <Route path='/authenticate' element={<GuestRoute><Authenticate /></GuestRoute>} />
+          <Route path='/activate' element={<SemiProtectedRoute><Activate /></SemiProtectedRoute>} />
+          <Route path='/rooms' element={<ProtectedRoute><Rooms /></ProtectedRoute>} />
+        </Routes>
+      </BrowserRouter >
+    )
   );
 }
 
