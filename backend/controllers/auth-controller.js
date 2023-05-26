@@ -80,6 +80,58 @@ class AuthController {
         res.json({ userDto, auth: true })
 
     }
+    async refresh(req, res) {
+        //get refresh token from cookie
+        const { refreshtoken: refFromCookie } = req.cookies
+        //check if refresh token in valid
+        let userData;
+        try {
+            userData = await tokenService.verifyRefreshToken(refFromCookie)
+        } catch (error) {
+            return res.status(401).json({ message: 'Invalid Token' })
+        }
+        //check if token is in database
+        try {
+
+            const token = await tokenService.findRefreshToken(userData._id, refFromCookie)
+            if (!token) {
+                return res.status(401).json({ message: 'Invalid Token' })
+            }
+        } catch (error) {
+            return res.status(500).json({ message: 'Internal Server Error' })
+        }
+        //check if valid token
+        const user = await userService.findUser({ _id: userData._id })
+        if (!user) {
+            return res.status(404).json({ message: 'No User' })
+        }
+        //generate new tokens
+        const { refreshToken, accessToken } = tokenService.generateToken({ _id: userData._id })
+
+        //update refreshtoken
+        try {
+            await tokenService.updateRefreshToken(userData._id, refreshToken)
+        } catch (error) {
+            return res.status(500).json({ message: 'Internal Server Error' })
+
+        }
+        //put in cokkie
+        res.cookie('refreshtoken', refreshToken, {
+            masAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
+
+        })
+        res.cookie('accesstoken', accessToken, {
+            masAge: 1000 * 60 * 60 * 24 * 30,
+            httpOnly: true,
+
+        })
+        //response
+        const userDto = new UserDto(user)
+        // console.log(userDto)
+        res.json({ userDto, auth: true })
+
+    }
 }
 
 module.exports = new AuthController()

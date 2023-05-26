@@ -14,4 +14,20 @@ export const sendOtp = (data) => api.post('/api/send-otp', data);
 export const verifyOtp = (data) => api.post('/api/verify-otp', data);
 export const activate = (data) => api.post('/api/activate', data)
 
+
+//Interceptors between resposne and request
+api.interceptors.response.use((config) => { return config }, async (error) => {
+    const originalReq = error.config
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+        originalReq._isRetry = true
+        try {
+            await axios.get(`${process.env.REACT_APP_API_URL}/api/refresh`, { withCredentials: true })
+            return api.request(originalReq)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    throw error
+})
+
 export default api
