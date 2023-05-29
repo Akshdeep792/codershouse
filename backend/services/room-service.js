@@ -7,9 +7,13 @@ class RoomService {
             topic,
             roomType,
             ownerId,
-            speaker: [ownerId]
+            speakers: [ownerId]
         })
         return room
+    }
+    async getAllRooms(types) {
+        const rooms = await roomModel.find({ roomType: { $in: types } }).populate('speakers').populate('ownerId').exec()
+        return rooms
     }
 }
 

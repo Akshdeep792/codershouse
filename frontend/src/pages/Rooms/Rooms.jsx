@@ -82,6 +82,7 @@ const Rooms = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             const { data } = await getAllRooms();
+            console.log(data)
             setRooms(data);
         };
         fetchRooms();

@@ -37,7 +37,7 @@ const StepAvatar = ({ onNext }) => {
             }
             
             // console.log(data);
-            // onNext()
+            onNext()
         } catch (err) {
             console.log(err);
         }finally{
