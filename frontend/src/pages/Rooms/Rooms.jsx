@@ -87,7 +87,7 @@ const Rooms = () => {
         };
         fetchRooms();
     }, []);
-    function openModal() {
+    const openModal = () => {
         setShowModal(true);
     }
     return (

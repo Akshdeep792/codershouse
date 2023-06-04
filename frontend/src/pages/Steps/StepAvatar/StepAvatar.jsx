@@ -46,10 +46,10 @@ const StepAvatar = ({ onNext }) => {
     }
 
     useEffect(() => {
-        return () => {
+        // return () => {
             
             setUnmounted(true)
-        }
+        // }
     },[])
     if(loading) return <Loader message="Activation in Progress..."/>
     return (
