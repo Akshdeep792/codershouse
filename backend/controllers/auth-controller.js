@@ -19,11 +19,11 @@ class AuthController {
 
         try {
 
-            // await OtpService.sendBySms(phone, otp)
+            await OtpService.sendBySms(phone, otp)
             res.json({
                 hash: `${hash}.${expires}`,
                 phone,
-                otp
+                // otp
             })
         } catch (error) {
             console.log(error)
